@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import util.DbConnector;
@@ -12,7 +15,7 @@ import util.DbConnector;
 public class Showing {
 	private int id;
 	private int performanceId;
-	private String date;
+	private Date date;
 	private String time;
 	private List<String> seats;
 
@@ -32,11 +35,11 @@ public class Showing {
 		this.performanceId = performanceId;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -74,7 +77,7 @@ public class Showing {
 				Showing s = new Showing();
 				s.setId(resultSet.getInt("Id"));
 				s.setPerformanceId(resultSet.getInt("PerformanceID"));
-				s.setDate(resultSet.getString("ShowDate"));
+				s.setDate(resultSet.getDate("ShowDate"));
 				s.setTime(resultSet.getString("ShowTime"));
 				records.add(s);
 			}
@@ -95,7 +98,7 @@ public class Showing {
 				Showing s = new Showing();
 				s.setId(resultSet.getInt("Id"));
 				s.setPerformanceId(resultSet.getInt("PerformanceID"));
-				s.setDate(resultSet.getString("ShowDate"));
+				s.setDate(resultSet.getDate("ShowDate"));
 				s.setTime(resultSet.getString("ShowTime"));
 				records.add(s);
 			}
@@ -114,7 +117,7 @@ public class Showing {
 					Showing s = new Showing();
 					s.setId(resultSet.getInt("Id"));
 					s.setPerformanceId(resultSet.getInt("PerformanceID"));
-					s.setDate(resultSet.getString("ShowDate"));
+					s.setDate(resultSet.getDate("ShowDate"));
 					s.setTime(resultSet.getString("ShowTime"));
 
 					return s;

@@ -7,11 +7,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%
+	String id = request.getParameter("id");
+	System.out.println("ID: " + id);
+	Performance p = Performance.getPerformanceById(id);
+%>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<title>The Theatre Royal</title>
+<title>The Theatre Royal | <%=p.getTitle()%></title>
 </head>
 
 <body>
@@ -19,11 +24,7 @@
 
 		<%@include file="WEB-INF/jsp/header.jsp"%>
 
-		<%
-			String id = request.getParameter("id");
-			System.out.println("ID: " + id);
-			Performance p = Performance.getPerformanceById(id);
-		%>
+
 
 		<div class="title">
 			<p><%=p.getTitle()%></p>
@@ -68,8 +69,7 @@
 					</select> <label for="seat">Select your seat:</label>
 					<%=p.getSeatOptions()%>
 					<input type="hidden" name="performanceId" value="<%=p.getId()%>">
-					<br>
-					<br>
+					<br> <br>
 					<%
 						if (email != null) {
 					%>
@@ -104,7 +104,7 @@
 		showing.onchange = function() {
 			fieldcheck();
 		};
-		
+
 		var currentSeat = showing.value;
 		fieldcheck();
 

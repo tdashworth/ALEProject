@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.DateCheck;
 import util.DbConnector;
 
 public class Performance {
@@ -75,14 +76,14 @@ public class Performance {
 	}
 
 	public String toString() {
-		return "This performance is of "+title+" and belongs to the genre of "+type+". "
-				+ "This performance is available in "+languages+" languages. "
-				+ "The show lasts for "+duration+". "
-				+ "The current ticket price is "+price+". "
-				+ "More information on "+title+": "+description+".";
+		return "This performance is of " + title + " and belongs to the genre of " + type + ". "
+				+ "This performance is available in " + languages + " languages. " + "The show lasts for " + duration
+				+ ". " + "The current ticket price is " + price + ". " + "More information on " + title + ": "
+				+ description + ".";
 	}
-	
-	public static Performance newPerformance(int id, String title, String description, String type, String languages, Double price, String duration) {
+
+	public static Performance newPerformance(int id, String title, String description, String type, String languages,
+			Double price, String duration) {
 		Performance p = new Performance();
 		p.setId(id);
 		p.setTitle(title);
@@ -93,34 +94,47 @@ public class Performance {
 		p.setDuration(duration);
 		return p;
 	}
-	
+
+	public static Performance newPerformance(ResultSet resultSet) throws SQLException {
+		Performance p = new Performance();
+		p.setId(resultSet.getInt("ID"));
+		p.setTitle(resultSet.getString("Title"));
+		p.setType(resultSet.getString("ShowType"));
+		p.setDescription(resultSet.getString("Description"));
+		p.setDuration(resultSet.getString("Duration"));
+		p.setLanguages(resultSet.getString("Lang"));
+		p.setPrice(resultSet.getDouble("Price"));
+		return p;
+	}
+
 	public String getTimingsList() throws SQLException {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
-		for(Showing s : showings) {
-			result += s.getDate().substring(0,10) + " @ " + s.getTime() + ", ";
+		for (Showing s : showings) {
+			result += DateCheck.toFormat(s.getDate()) + " @ " + s.getTime() + ", ";
 		}
-		
-		return result.substring(0, result.length()-2);
+
+		return result.substring(0, result.length() - 2);
 	}
-	
+
 	public String getTimingsOptions() throws SQLException {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
-		for(Showing s : showings) {
-			result += "<option value='" + s.getId() + "'>" + s.getDate().substring(0,10) + " @ " + s.getTime() + "</option>";
+		for (Showing s : showings) {
+			result += "<option value='" + s.getId() + "'>" + DateCheck.toFormat(s.getDate()) + " @ " + s.getTime() + "</option>";
 		}
-		
+
 		return result;
 	}
-	
+
 	public String getSeatOptions() throws SQLException {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
-		for(Showing s : showings) {
-			result += "<select class='form-control' style='display: none;' id='" + s.getId() + "' name='" + s.getId() + "'>" + s.getSeatOptions() + "</select>";
+		for (Showing s : showings) {
+			result += "<select class='form-control' style='display: none;' id='" + s.getId() + "' name='" + s.getId()
+					+ "'>" + s.getSeatOptions() + "</select>";
 		}
-		
+
 		return result;
 	}
 
@@ -131,67 +145,43 @@ public class Performance {
 				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance");
 				ResultSet resultSet = ps.executeQuery();
 			) {
-
+			
 			while (resultSet.next()) {
-				Performance p = new Performance();
-				p.setId(resultSet.getInt("ID"));
-				p.setTitle(resultSet.getString("Title"));
-				p.setType(resultSet.getString("ShowType"));
-				p.setDescription(resultSet.getString("Description"));
-				p.setDuration(resultSet.getString("Duration"));
-				p.setLanguages(resultSet.getString("Lang"));
-				p.setPrice(resultSet.getDouble("Price"));
-				records.add(p);
+				records.add(newPerformance(resultSet));
 			}
 		}
 		return records;
 	}
-	
+
 	public static List<Performance> getPerformancesSearchText(String query) throws SQLException {
 		List<Performance> records = new ArrayList<Performance>();
 
 		try (Connection con = DbConnector.getConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance WHERE LOWER(Title) LIKE ? OR LOWER(Description) LIKE ?");
-			) {
+				PreparedStatement ps = con.prepareStatement(
+						"SELECT * FROM Performance WHERE LOWER(Title) LIKE ? OR LOWER(Description) LIKE ?");) {
 			String sqlSearchTerm = ("%" + query + "%").toLowerCase();
 			ps.setString(1, sqlSearchTerm);
 			ps.setString(2, sqlSearchTerm);
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			while (resultSet.next()) {
-				Performance p = new Performance();
-				p.setId(resultSet.getInt("ID"));
-				p.setTitle(resultSet.getString("Title"));
-				p.setType(resultSet.getString("ShowType"));
-				p.setDescription(resultSet.getString("Description"));
-				p.setDuration(resultSet.getString("Duration"));
-				p.setLanguages(resultSet.getString("Lang"));
-				p.setPrice(resultSet.getDouble("Price"));
-				records.add(p);
+				records.add(newPerformance(resultSet));
 			}
 		}
 		return records;
 	}
-	
+
 	public static List<Performance> getPerformancesSearchDate(String query) throws SQLException {
 		List<Performance> records = new ArrayList<Performance>();
 
 		try (Connection con = DbConnector.getConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance WHERE ID IN (SELECT PerformanceID FROM Showing WHERE ShowDate = ?)");
-			) {
+				PreparedStatement ps = con.prepareStatement(
+						"SELECT * FROM Performance WHERE ID IN (SELECT PerformanceID FROM Showing WHERE ShowDate = ?)");) {
 			ps.setString(1, query);
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			while (resultSet.next()) {
-				Performance p = new Performance();
-				p.setId(resultSet.getInt("ID"));
-				p.setTitle(resultSet.getString("Title"));
-				p.setType(resultSet.getString("ShowType"));
-				p.setDescription(resultSet.getString("Description"));
-				p.setDuration(resultSet.getString("Duration"));
-				p.setLanguages(resultSet.getString("Lang"));
-				p.setPrice(resultSet.getDouble("Price"));
-				records.add(p);
+				records.add(newPerformance(resultSet));
 			}
 		}
 		return records;
@@ -199,21 +189,12 @@ public class Performance {
 
 	public static Performance getPerformanceById(String id) throws SQLException {
 		try (Connection con = DbConnector.getConnection();
-				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance WHERE ID = ?");
-			) {
-			
+				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance WHERE ID = ?");) {
+
 			ps.setString(1, id);
 			try (ResultSet resultSet = ps.executeQuery();) {
 				if (resultSet.next()) {
-					Performance p = new Performance();
-					p.setId(resultSet.getInt("ID"));
-					p.setTitle(resultSet.getString("Title"));
-					p.setType(resultSet.getString("ShowType"));
-					p.setDescription(resultSet.getString("Description"));
-					p.setDuration(resultSet.getString("Duration"));
-					p.setLanguages(resultSet.getString("Lang"));
-					p.setPrice(resultSet.getDouble("Price"));
-					return p;
+					return newPerformance(resultSet);
 				}
 			}
 		}

@@ -1,5 +1,9 @@
-DROP TABLE Ticket;
-DROP TABLE Customer;
-DROP TABLE Showing;
-DROP TABLE Performance;
+DROP TABLE Ticket
+/
+DROP TABLE Customer
+/
+DROP TABLE Showing
+/
+DROP TABLE Performance
+/
 
