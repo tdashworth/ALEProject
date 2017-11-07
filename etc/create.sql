@@ -106,7 +106,9 @@ CREATE TABLE Customer (
 	AddressLine2 VARCHAR(40),
 	Postcode VARCHAR(40),
 	Country VARCHAR(30),
-	Password VARCHAR(30)
+	Password VARCHAR(30),
+	IsAdmin INT,
+	CONSTRAINT ck_IsAdmin CHECK (IsAdmin IN (0,1)) 
 )
 /
 
@@ -122,8 +124,8 @@ CREATE OR REPLACE PROCEDURE insertCustomer (
 )
 IS 
 BEGIN
-	INSERT INTO Customer (Email, FirstName, LastName,  AddressLine1, AddressLine2, Postcode, Country, Password)
-	VALUES (email, firstName, lastName, addressLine1, addressLine2, postcode, country, password);
+	INSERT INTO Customer (Email, FirstName, LastName,  AddressLine1, AddressLine2, Postcode, Country, Password, IsAdmin)
+	VALUES (email, firstName, lastName, addressLine1, addressLine2, postcode, country, password, 0);
 END;
 /
 
@@ -149,6 +151,7 @@ BEGIN
 	insertCustomer('patriciachaandeer@hotmail.co.uk','Patricia ','Chaandeer','264 Broad Street','Birmingham','B1 2DS','United Kingdom','lumpyhoney76');
 	insertCustomer('margaretdavis@gmail.com','Margaret ','Davis','42 Fairey Street','Birmingham','B45 8GW','United Kingdom','graywinter62');
 	insertCustomer('karenrivera@gmail.com','Karen ','Rivera','1 Pomeroy Way','Birmingham','B37 7WB','United Kingdom','bumpyrhino78');
+	UPDATE Customer SET IsAdmin = 1 WHERE Email = 'jameswashington@hotmail.co.uk';
 END;
 /
 

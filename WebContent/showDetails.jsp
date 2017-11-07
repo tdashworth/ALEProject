@@ -3,13 +3,13 @@
 <%@ page import="model.Performance"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.Performance"%>
+<%@ page import="util.Formatter" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <%
 	String id = request.getParameter("id");
-	System.out.println("ID: " + id);
 	Performance p = Performance.getPerformanceById(id);
 %>
 <link
@@ -50,7 +50,7 @@
 				Timings Available:
 				<%=p.getTimingsList()%></p>
 			<p>
-				Price: £<%=p.getPrice()%></p>
+				Price: £<%=Formatter.moneyFormat(p.getPrice())%></p>
 		</div>
 
 		<div class="custselect">
