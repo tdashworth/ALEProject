@@ -14,31 +14,31 @@
 	<div class="columnContainer">
 		<div class="row">
 			<div id="columnMain" style="background-color: #bbb;">
-				<h2>Add perfomance</h2>
-				<form>
+				<h2>Add performance</h2>
+				<form method="post" action="AddPerformance">
 					<div class="form-group">
 						<label for="usr">Title: </label> <input type="text"
-							class="form-control" id="title">
+							class="form-control" name="title" id="title">
 					</div>
 					<div class="form-group">
 						<label for="usr">Show Type: </label> <input type="text"
-							class="form-control" id="showType">
+							class="form-control" name="showType" id="showType">
 					</div>
 					<div class="form-group">
-						<label for="pwd">Language: </label> <input type="text"
-							class="form-control" id="language">
+						<label for="pwd">Languages: </label> <input type="text"
+							class="form-control" name="languages" id="language">
 					</div>
 					<div class="form-group">
 						<label for="usr">Duration: </label> <input type="text"
-							class="form-control" id="duration">
+							class="form-control" name="duration" id="duration">
 					</div>
 					<div class="form-group">
 						<label for="usr">Description: </label> <input type="text"
-							class="form-control" id="description">
+							class="form-control" name="description" id="description">
 					</div>
 					<div class="form-group">
 						<label for="pwd">Price: </label> <input type="text"
-							class="form-control" id="price">
+							class="form-control" name="price" id="price">
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
