@@ -116,17 +116,26 @@ public class Performance {
 			result += Formatter.dateFormat(s.getDate()) + " @ " + s.getTime() + ", ";
 		}
 
-		return result.substring(0, result.length() - 2);
+		if (result.length() > 0) {
+			return result.substring(0, result.length() - 2);
+		} else {
+			return "<i>No showings</i>";
+		}
 	}
 
 	public String getTimingsOptions() throws SQLException {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
 		for (Showing s : showings) {
-			result += "<option value='" + s.getId() + "'>" + Formatter.dateFormat(s.getDate()) + " @ " + s.getTime() + "</option>";
+			result += "<option value='" + s.getId() + "'>" + Formatter.dateFormat(s.getDate()) + " @ " + s.getTime()
+					+ "</option>";
 		}
 
-		return result;
+		if (result.length() > 0) {
+			return result;
+		} else {
+			return "<i>No showings</i>";
+		}
 	}
 
 	public String getSeatOptions() throws SQLException {
@@ -145,9 +154,8 @@ public class Performance {
 
 		try (Connection con = DbConnector.getConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT * FROM Performance");
-				ResultSet resultSet = ps.executeQuery();
-			) {
-			
+				ResultSet resultSet = ps.executeQuery();) {
+
 			while (resultSet.next()) {
 				records.add(newPerformance(resultSet));
 			}
@@ -202,7 +210,7 @@ public class Performance {
 		}
 		return null;
 	}
-	
+
 	public boolean writeToDB() {
 		try {
 			CallableStatement cs = DbConnector.getConnection().prepareCall("{call insertPerformance(?,?,?,?,?,?,?)}");
