@@ -3,6 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.Ticket"%>
 <%@ page import="model.Customer"%>
+<%@ page import="util.DateCheck"%>
 
 <!doctype html>
 <html>
@@ -12,7 +13,7 @@
 	rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
-<title>Project example - basket</title>
+<title>The Theatre Royal | Basket</title>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
 		<div class="row">
 			<div id="columnMain" style="background-color: #aaa;">
 				<h2>Products Brought:</h2>
-				
+
 				<% 
 				Customer c = null;
 				List<Ticket> tickets = null;
@@ -33,8 +34,11 @@
 					
 					for (Ticket t : tickets) {
 						out.println(t.getPerformanceTitle() + " - " + t.getType() + " (£" + t.getPrice() + ") <br>" +
-									t.getShowingDate().substring(0, 10) + ": " + t.getShowingTime() + "<br>" + 
-									"Seat: " + t.getSeatRow()+ t.getSeatNumber() + "<br><br>");
+								DateCheck.toFormat(t.getShowingDate())+ ": " + t.getShowingTime() + "<br>" + 
+									"Seat: " + t.getSeatRow()+ t.getSeatNumber() + "<br>" +
+									"<form method='post' action='RemoveFromBasket'>" + 
+									"<input type='hidden' name='ticketId' value='" + t.getId() + "'> " + 
+									"<button type='submit' class='btn btn-primary'>Remove</button></form> <br>");
 					}
 					
 					c = Customer.getCustomerByEmail(email);
@@ -50,44 +54,53 @@
 				}
 				%>
 				<br>
-				<div class="checkbox">
-					<label><input type="checkbox" value="">Shipping
-						Services (£<% if (email !=null) { out.println(Ticket.getDeliveryPriceOfBasket(tickets)); } %>)</label>
-				</div>
-				</p>
-			</div>
-			<form method="post" action="PaymentServlet">
+				<% if (email !=null && Ticket.isDeliverable(tickets)) { %>
+					<div class="checkbox">
+						<label><input type="checkbox" value="">Shipping
+							Services (£ <%= Ticket.getDeliveryPriceOfBasket(tickets) %>)</label>
+					</div>
+				<% } %>
+			</p>
+		</div>
+		<form method="post" action="PaymentServlet">
 			<div class="column" style="background-color: #bbb;">
 				<h2>Purchaser Details</h2>
-				
-					<div class="form-group">
-						<label for="usr">Email Address:</label> <input type="text"
-							class="form-control" id="fName" disabled="true" value="<% if (email !=null) { out.println(c.getEmail()); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="usr">First Name:</label> <input type="text"
-							class="form-control" id="fName" value="<% if (email !=null) { out.println( c.getFirstName() ); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Last Name:</label> <input type="text"
-							class="form-control" id="lName" value="<% if (email !=null) { out.println( c.getLastName() ); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="usr">Address Line 1:</label> <input type="text"
-							class="form-control" id="add1" value="<% if (email !=null) { out.println( c.getAddressLine1()); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="usr">Address Line 2:</label> <input type="text"
-							class="form-control" id="add2" value="<% if (email !=null) { out.println( c.getAddressLine2() ); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Postcode:</label> <input type="text"
-							class="form-control" id="pstcd" value="<% if (email !=null) { out.println( c.getPostcode() ); }; %>">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Country:</label> <input type="text"
-							class="form-control" id="coun" value="<% if (email !=null) { out.println( c.getCountry()); }; %>">
-					</div>
+
+				<div class="form-group">
+					<label for="usr">Email Address:</label> <input type="text"
+						class="form-control" id="fName" disabled="true"
+						value="<% if (email !=null) { out.println(c.getEmail()); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="usr">First Name:</label> <input type="text"
+						class="form-control" id="fName"
+						value="<% if (email !=null) { out.println( c.getFirstName() ); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="pwd">Last Name:</label> <input type="text"
+						class="form-control" id="lName"
+						value="<% if (email !=null) { out.println( c.getLastName() ); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="usr">Address Line 1:</label> <input type="text"
+						class="form-control" id="add1"
+						value="<% if (email !=null) { out.println( c.getAddressLine1()); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="usr">Address Line 2:</label> <input type="text"
+						class="form-control" id="add2"
+						value="<% if (email !=null) { out.println( c.getAddressLine2() ); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="pwd">Postcode:</label> <input type="text"
+						class="form-control" id="pstcd"
+						value="<% if (email !=null) { out.println( c.getPostcode() ); }; %>">
+				</div>
+				<div class="form-group">
+					<label for="pwd">Country:</label> <input type="text"
+						class="form-control" id="coun"
+						value="<% if (email !=null) { out.println( c.getCountry()); }; %>">
+				</div>
 			</div>
 			<div class="column" style="background-color: #ccc;">
 				<h2>Payment Details:</h2>
@@ -103,12 +116,13 @@
 					<label for="pwd">Account No:</label> <input type="text"
 						class="form-control" id="pstcd">
 				</div>
-				
-				<button type="submit" class="btn btn-primary">Submit details</button>
-				
+
+				<button type="submit" class="btn btn-primary">Submit
+					details</button>
+
 			</div>
-			</form>
-		</div>
+		</form>
+	</div>
 
 	</div>
 	</div>

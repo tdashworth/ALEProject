@@ -56,7 +56,6 @@ BEGIN
 	insertPerformance (PerformanceID, 'Arctic Monkeys', 'Concert', '', '3h+', 'Arctic Monkeys are an English rock band 
 		formed in 2002 in High Green, a suburb of Sheffield. The band consists of Alex Turner (lead vocals, 
 		rhythm/lead guitar), Matt Helders (drums, vocals), Jamie Cook (lead/rhythm guitar) and Nick O''Malley (bass, backing vocals)', 15);	
-
 END;
 /
 
@@ -95,8 +94,7 @@ BEGIN
 	insertShowing (ShowingID, 4,'11-JAN-18','9AM');
 	insertShowing (ShowingID, 4,'11-JAN-18','5PM');
 	insertShowing (ShowingID, 5,'24-JUL-18','5PM');
-	insertShowing (ShowingID, 6,'29-AUG-18','5PM');
-
+	insertShowing (ShowingID, 6,'10-NOV-17','5PM');
 END ;
 /
 
