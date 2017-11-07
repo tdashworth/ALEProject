@@ -3,7 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.Ticket"%>
 <%@ page import="model.Customer"%>
-<%@ page import="util.DateCheck"%>
+<%@ page import="util.Formatter"%>
 
 <!doctype html>
 <html>
@@ -26,7 +26,6 @@
 				<h2>Products Brought:</h2>
 
 				<% 
-				Customer c = null;
 				List<Ticket> tickets = null;
 				
 				if (email !=null) {
@@ -34,16 +33,15 @@
 					
 					for (Ticket t : tickets) {
 						out.println(t.getPerformanceTitle() + " - " + t.getType() + " (£" + t.getPrice() + ") <br>" +
-								DateCheck.toFormat(t.getShowingDate())+ ": " + t.getShowingTime() + "<br>" + 
+								Formatter.dateFormat(t.getShowingDate())+ ": " + t.getShowingTime() + "<br>" + 
 									"Seat: " + t.getSeatRow()+ t.getSeatNumber() + "<br>" +
 									"<form method='post' action='RemoveFromBasket'>" + 
 									"<input type='hidden' name='ticketId' value='" + t.getId() + "'> " + 
 									"<button type='submit' class='btn btn-primary'>Remove</button></form> <br>");
 					}
 					
-					c = Customer.getCustomerByEmail(email);
 					
-					out.println("<br><h3>Price: </h3> £" + Ticket.getPriceOfBasket(tickets) );			
+					out.println("<br><h3>Price: </h3> £" + Formatter.moneyFormat(Ticket.getPriceOfBasket(tickets)));			
 					
 				} else {
 					request.getRequestDispatcher("index.jsp").include(request, response);
@@ -57,10 +55,9 @@
 				<% if (email !=null && Ticket.isDeliverable(tickets)) { %>
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Shipping
-							Services (£ <%= Ticket.getDeliveryPriceOfBasket(tickets) %>)</label>
+							Services (£ <%= Formatter.moneyFormat(Ticket.getDeliveryPriceOfBasket(tickets)) %>)</label>
 					</div>
 				<% } %>
-			</p>
 		</div>
 		<form method="post" action="PaymentServlet">
 			<div class="column" style="background-color: #bbb;">
@@ -124,7 +121,6 @@
 		</form>
 	</div>
 
-	</div>
 	</div>
 
 	<script src=" https://code.jquery.com/jquery-1.12.4.min.js"

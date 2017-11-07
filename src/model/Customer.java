@@ -18,6 +18,7 @@ public class Customer {
 	private String postcode;
 	private String country;
 	private String password;
+	private Boolean admin;
 	
 	public String getEmail() {
 		return email;
@@ -83,6 +84,14 @@ public class Customer {
 		this.password = password;
 	}
 	
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
 	public String toString() {
 		return "This customer is " + firstName + " " + lastName +". \n"
 				+ "Address is " + addressLine1 + "\n"
@@ -106,6 +115,19 @@ public class Customer {
 		
 		return c;
 	}
+	public static Customer newCustomer(ResultSet resultSet) throws SQLException {
+		Customer c = new Customer();
+		c.setEmail(resultSet.getString("Email"));
+		c.setFirstName(resultSet.getString("FirstName"));
+		c.setLastName(resultSet.getString("LastName"));
+		c.setAddressLine1(resultSet.getString("AddressLine1"));
+		c.setAddressLine2(resultSet.getString("AddressLine2"));
+		c.setPostCode(resultSet.getString("PostCode"));
+		c.setCountry(resultSet.getString("Country"));
+		c.setPassword(resultSet.getString("Password"));
+		c.setAdmin(resultSet.getInt("IsAdmin")==1);
+		return c;
+	}
 
 	public static List<Customer> getCustomer() throws SQLException {
 		List<Customer> records = new ArrayList<Customer>();
@@ -120,16 +142,7 @@ public class Customer {
 
 			// Build the list of Booking objects
 			while (resultSet.next()) {
-				Customer c = new Customer();
-				c.setEmail(resultSet.getString("Email"));
-				c.setFirstName(resultSet.getString("FirstName"));
-				c.setLastName(resultSet.getString("LastName"));
-				c.setAddressLine1(resultSet.getString("AddressLine1"));
-				c.setAddressLine2(resultSet.getString("AddressLine2"));
-				c.setPostCode(resultSet.getString("PostCode"));
-				c.setCountry(resultSet.getString("Country"));
-				c.setPassword(resultSet.getString("Password"));
-				records.add(c);
+				records.add(newCustomer(resultSet));
 			}
 		}
 		return records;
@@ -142,16 +155,7 @@ public class Customer {
 			ps.setString(1, email);
 			try (ResultSet resultSet = ps.executeQuery();) {
 				if (resultSet.next()) {
-					Customer c = new Customer();
-					c.setEmail(resultSet.getString("Email"));
-					c.setFirstName(resultSet.getString("FirstName"));
-					c.setLastName(resultSet.getString("LastName"));
-					c.setAddressLine1(resultSet.getString("AddressLine1"));
-					c.setAddressLine2(resultSet.getString("AddressLine2"));
-					c.setPostCode(resultSet.getString("PostCode"));
-					c.setCountry(resultSet.getString("Country"));
-					c.setPassword(resultSet.getString("Password"));
-					return c;
+					return newCustomer(resultSet);
 				}
 			}
 		}

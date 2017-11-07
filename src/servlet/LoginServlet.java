@@ -25,9 +25,6 @@ public class LoginServlet extends HttpServlet {
 
 		String email = request.getParameter("username").toLowerCase();
 		String password = request.getParameter("password");
-		
-		System.out.println(request.getContextPath());
-		System.out.println(request.getRequestURI().substring(request.getContextPath().length()));
 
 		String actualPassword;
 		try {

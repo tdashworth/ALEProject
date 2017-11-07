@@ -225,10 +225,10 @@ public class Ticket {
 		// everyone is adult
 		if (nonConsessionCount == tickets.size()) {
 			return tickets.size();
-			// all consessions
+			// all concessions
 		} else if (nonConsessionCount == 0) {
 			return 0.0;
-			// There is atleast one consession ticket
+			// There is at least one concession ticket
 		} else if (nonConsessionCount != (tickets.size())) {
 			return 1.0;
 		}

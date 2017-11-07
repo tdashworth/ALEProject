@@ -33,7 +33,7 @@ public class RemoveFromBasket extends HttpServlet {
 			
 			try {
 				Ticket.remove(ticketId);
-				System.out.println("Removed ticket " + ticketId);
+				//System.out.println("Removed ticket " + ticketId);
 				response.sendRedirect("basket.jsp");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

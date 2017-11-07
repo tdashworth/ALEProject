@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Performance"%>
 <%@ page import="java.util.List"%>
-<%@ page import="util.DateCheck"%>
+<%@ page import="util.Formatter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +24,7 @@
 
 			if (searchTerm == null || searchTerm == "") {
 				performances = Performance.getPerformances();
-			} else if (DateCheck.validate(searchTerm)) {
+			} else if (Formatter.validateDate(searchTerm)) {
 				performances = Performance.getPerformancesSearchDate(searchTerm);
 				
 				if (performances.size() == 0)  {

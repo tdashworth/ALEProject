@@ -1,13 +1,15 @@
 package model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DateCheck;
+import util.Formatter;
 import util.DbConnector;
 
 public class Performance {
@@ -111,7 +113,7 @@ public class Performance {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
 		for (Showing s : showings) {
-			result += DateCheck.toFormat(s.getDate()) + " @ " + s.getTime() + ", ";
+			result += Formatter.dateFormat(s.getDate()) + " @ " + s.getTime() + ", ";
 		}
 
 		return result.substring(0, result.length() - 2);
@@ -121,7 +123,7 @@ public class Performance {
 		List<Showing> showings = Showing.getShowingsByPerformanceId(this.id);
 		String result = "";
 		for (Showing s : showings) {
-			result += "<option value='" + s.getId() + "'>" + DateCheck.toFormat(s.getDate()) + " @ " + s.getTime() + "</option>";
+			result += "<option value='" + s.getId() + "'>" + Formatter.dateFormat(s.getDate()) + " @ " + s.getTime() + "</option>";
 		}
 
 		return result;
@@ -199,6 +201,25 @@ public class Performance {
 			}
 		}
 		return null;
+	}
+	
+	public boolean writeToDB() {
+		try {
+			CallableStatement cs = DbConnector.getConnection().prepareCall("{call insertPerformance(?,?,?,?,?,?,?)}");
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, title);
+			cs.setString(3, type);
+			cs.setString(4, languages);
+			cs.setString(5, duration);
+			cs.setString(6, description);
+			cs.setDouble(7, price);
+			cs.execute();
+
+			return true;
+		} catch (SQLException sqle) {
+			System.out.println(sqle);
+		}
+		return false;
 	}
 
 }
