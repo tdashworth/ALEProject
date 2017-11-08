@@ -1,15 +1,18 @@
 package model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import util.Formatter;
 import util.DbConnector;
 
 public class Showing {
@@ -160,5 +163,21 @@ public class Showing {
 			e.printStackTrace();
 		}
 		return records;
+	}
+
+	public boolean writeToDB() {
+		try {
+			CallableStatement cs = DbConnector.getConnection().prepareCall("{call insertShowing(?,?,?,?)}");
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setInt(2, id);
+			cs.setString(3, Formatter.dateFormat(date));
+			cs.setString(4, time);
+			cs.execute();
+
+			return true;
+		} catch (SQLException sqle) {
+			System.out.println(sqle);
+		}
+		return false;
 	}
 }
