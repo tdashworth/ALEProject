@@ -37,6 +37,7 @@ public class AddShowing extends HttpServlet {
 		DateFormat format = new SimpleDateFormat("dd-MMM-yy");
 		try {
 			s.setDate(format.parse(request.getParameter("date")));
+			s.setTime(request.getParameter("time"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
