@@ -44,44 +44,6 @@
 				</form>
 			</div>
 
-			<div class="column" style="background-color: #ccc;">
-				<h2>Add Showing</h2>
-				<form method="post" action="AddShowing">
-					<div class="form-group">
-						<label for="usr">Show Id: </label> <input type="text"
-							class="form-control" name="id" id="title">
-					</div>
-					<div class="form-group">
-						<label for="usr">Show Date: </label> <input type="text"
-							class="form-control" name="date" id="title">
-					</div>
-					<div class="form-group">
-						<label for="usr">Show Time: </label> <input type="text"
-							class="form-control" name="time" id="showType">
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-			</div>
-
-			<div class="column" style="background-color: #ccc;">
-				<h2>Add Showing</h2>
-				<form>
-					<div class="form-group">
-						<label for="usr">Show Date: </label> <input type="text"
-							class="form-control" id="title">
-					</div>
-					<div class="form-group">
-						<label for="usr">Show Time: </label> <input type="text"
-							class="form-control" id="showType">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Availablility: </label> <input type="text"
-							class="form-control" id="language">
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-			</div>
-
 		</div>
 	</div>
 

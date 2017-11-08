@@ -3,7 +3,7 @@
 <%@ page import="model.Performance"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.Performance"%>
-<%@ page import="util.Formatter" %>
+<%@ page import="util.Formatter"%>
 
 <!DOCTYPE html>
 <html>
@@ -51,6 +51,22 @@
 				<%=p.getTimingsList()%></p>
 			<p>
 				Price: £<%=Formatter.moneyFormat(p.getPrice())%></p>
+
+			<%
+				if (c != null) {
+					if (c.getAdmin()) {
+			%>
+			<form method="post" action="AddShowing">
+				<input type="hidden" class="form-control" name="id" id="title"
+					value="<%=p.getId()%>"> <input type="text" class=""
+					placeholder="Date" name="date" id="title"> <input
+					type="text" class="" placeholder="Time" name="time" id="showType">
+				<button type="submit" class="btn btn-primary">Add</button>
+			</form>
+			<%
+					}
+				}
+			%>
 		</div>
 
 		<div class="custselect">

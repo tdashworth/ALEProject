@@ -43,6 +43,7 @@ public class AddShowing extends HttpServlet {
 			e.printStackTrace();
 		}
 		s.writeToDB();
+		request.getRequestDispatcher("showDetails.jsp").include(request, response);
 	}
 
 }

@@ -27,8 +27,7 @@
 		
 		if (c != null) {
 			if (c.getAdmin()) {
-				%><a href='addPerformance.jsp'>Performances</a> 
-				  <a href='addShowing.jsp'>Showings</a> <%
+				%><a href='addPerformance.jsp'>Performances</a> <%
 			}
 		}
 	%>

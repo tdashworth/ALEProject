@@ -1,3 +1,4 @@
+<a href="addUser.jsp">Create Account</a>
 <form class='form-inline' name='LoginForm' method='post' action='LoginServlet'>
 <div class='form-group mx-sm-6'>
 <label for='Email' class='sr-only'>Email Address</label>

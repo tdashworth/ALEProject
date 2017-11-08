@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,8 +37,17 @@ public class AddPerformance extends HttpServlet {
 		p.setDuration(request.getParameter("duration"));
 		p.setDescription(request.getParameter("description"));
 		p.setPrice(Double.parseDouble(request.getParameter("price")));
-		if (p.writeToDB()) {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+		int performanceId = p.writeToDB();
+		if (performanceId > 0) {
+			request.setAttribute("performanceId", performanceId);
+			request.getRequestDispatcher("addShowing.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("index.jsp").include(request, response);
+			PrintWriter out = response.getWriter();
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('Creation of performance failed!');");
+			out.println("location='index.jsp';");
+			out.println("</script>");
 		}
 	}
 

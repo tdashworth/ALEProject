@@ -211,7 +211,7 @@ public class Performance {
 		return null;
 	}
 
-	public boolean writeToDB() {
+	public int writeToDB() {
 		try {
 			CallableStatement cs = DbConnector.getConnection().prepareCall("{call insertPerformance(?,?,?,?,?,?,?)}");
 			cs.registerOutParameter(1, Types.INTEGER);
@@ -223,11 +223,11 @@ public class Performance {
 			cs.setDouble(7, price);
 			cs.execute();
 
-			return true;
+			return cs.getInt(1);
 		} catch (SQLException sqle) {
 			System.out.println(sqle);
 		}
-		return false;
+		return -1;
 	}
 
 }
