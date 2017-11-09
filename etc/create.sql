@@ -30,30 +30,28 @@ END;
 DECLARE 	
 	PerformanceID int;
 BEGIN
-	insertPerformance (PerformanceID,'Macbeth', 'Theatre', 'English', '(1h 53m With 15 minute interval)',
+	insertPerformance(PerformanceID,'Macbeth', 'Theatre', 'English', '(1h 53m With 15 minute interval)',
 		'Fleance - Banquo''s son, who survives Macbeth''s attempt to murder him. 
 		At the end of the play, Fleance''s whereabouts are unknown. Presumably, 
 		he may come to rule Scotland, fulfilling the witches''prophecy that Banquo''s 
 		sons will sit on the Scottish throne.', 15);
-	insertPerformance (PerformanceID, 'Hamlet', 'Theatre', 'English', '3h 35m (with Two 15 minute intervals)', 
+	insertPerformance(PerformanceID, 'Hamlet', 'Theatre', 'English', '3h 35m (with Two 15 minute intervals)', 
 		'After the death of his father, Hamlet''s mother Gertrude married Claudius, 
 		Hamlet''s uncle and the new King of Denmark. One night, a ghost (said to be the 
 		ghost of King Hamlet) appears to Hamlet''s best friend Horatio. ... Hamlet is in 
 		love with Ophelia, the daughter of Claudius''most trusted counselor, Polonius.', 15);
-	insertPerformance (PerformanceID, 'Le Miserables', 'Musical', 'French/English', '2h 40m(with 15 minute interval)', 
+	insertPerformance(PerformanceID, 'Le Miserables', 'Musical', 'French/English', '2h 40m(with 15 minute interval)', 
 		'Based on the novel by Victor Hugo, ''Les Miserables''travels with prisoner-on-parole, 
 		24601, Jean Valjean, as he runs from the ruthless Inspector Javert on a journey beyond the 
 		barricades, at the center of the June Rebellion.', 15);
-	insertPerformance (PerformanceID, 'Verdi''s Aida', 'Opera', 'Italian', '3h 5m(with Two 15 minute intervals)',
+	insertPerformance(PerformanceID, 'Verdi''s Aida', 'Opera', 'Italian', '3h 5m(with Two 15 minute intervals)',
 		'An enslaved Nubian princess, Aida, finds her heart entangled with Radames, an Egyptian 
 		soldier who is betrothed to the Pharaoh''s daughter, Amneris. As their forbidden love 
 		blossoms, Aida is forced to weigh her heart against the responsibility that she faces as the leader of her people', 15);
-
-	insertPerformance (PerformanceID, 'Foo Fighters', 'Concert', '', '3h+','Foo Fighters is an American rock band, 
+	insertPerformance(PerformanceID, 'Foo Fighters', 'Concert', '', '3h+','Foo Fighters is an American rock band, 
 		formed in Seattle, Washington in 1994. It was founded by Nirvana drummer Dave Grohl 
 		as a one-man project following the dissolution of Nirvana after the death of Kurt Cobain.', 15);
-		
-	insertPerformance (PerformanceID, 'Arctic Monkeys', 'Concert', '', '3h+', 'Arctic Monkeys are an English rock band 
+	insertPerformance(PerformanceID, 'Arctic Monkeys', 'Concert', '', '3h+', 'Arctic Monkeys are an English rock band 
 		formed in 2002 in High Green, a suburb of Sheffield. The band consists of Alex Turner (lead vocals, 
 		rhythm/lead guitar), Matt Helders (drums, vocals), Jamie Cook (lead/rhythm guitar) and Nick O''Malley (bass, backing vocals)', 15);	
 END;
@@ -85,16 +83,16 @@ END;
 DECLARE 
 	ShowingID int;
 BEGIN 
-	insertShowing (ShowingID, 1,'24-MAY-18','9AM');
-	insertShowing (ShowingID, 1,'24-MAY-18','5PM');
-	insertShowing (ShowingID, 2,'19-OCT-18','9AM');
-	insertShowing (ShowingID, 2,'19-OCT-18','5PM');
-	insertShowing (ShowingID, 3,'05-JUL-18','9AM');
-	insertShowing (ShowingID, 3,'05-JUL-18','5PM');
-	insertShowing (ShowingID, 4,'11-JAN-18','9AM');
-	insertShowing (ShowingID, 4,'11-JAN-18','5PM');
-	insertShowing (ShowingID, 5,'24-JUL-18','5PM');
-	insertShowing (ShowingID, 6,'10-NOV-17','5PM');
+	insertShowing(ShowingID, 1,'24-MAY-18','9AM');
+	insertShowing(ShowingID, 1,'24-MAY-18','5PM');
+	insertShowing(ShowingID, 2,'19-OCT-18','9AM');
+	insertShowing(ShowingID, 2,'19-OCT-18','5PM');
+	insertShowing(ShowingID, 3,'05-JUL-18','9AM');
+	insertShowing(ShowingID, 3,'05-JUL-18','5PM');
+	insertShowing(ShowingID, 4,'11-JAN-18','9AM');
+	insertShowing(ShowingID, 4,'11-JAN-18','5PM');
+	insertShowing(ShowingID, 5,'24-JUL-18','5PM');
+	insertShowing(ShowingID, 6,'10-NOV-17','5PM');
 END ;
 /
 

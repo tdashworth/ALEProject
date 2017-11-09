@@ -191,7 +191,7 @@ public class Customer {
 			cs.setString(8, password);
 			cs.execute();
 
-			return cs.getInt(1);
+			return 1;
 		} catch (SQLException sqle) {
 			System.out.println(sqle);
 		}
