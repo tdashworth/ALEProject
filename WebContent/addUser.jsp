@@ -16,39 +16,43 @@
 	<div class="columnContainer">
 		<div class="row">
 			
-			<div id="user" style="background-color: #bbb;">
+			<form method="post" action="AddUser" id="user" style="background-color: #bbb;">
 				<h2>Register New User</h2>
 
 				<div class="form-group">
 					<label for="usr">Email Address:</label> 
-					<input type="text" class="form-control" id="fName">
+					<input type="text" class="form-control" name="email" id="fName">
 				</div>
 				<div class="form-group">
 					<label for="usr">First Name:</label> 
-					<input type="text" class="form-control" id="fName"">
+					<input type="text" class="form-control" name="firstName" id="fName"">
 				</div>
 				<div class="form-group">
 					<label for="pwd">Last Name:</label> 
-					<input type="text" class="form-control" id="lName">
+					<input type="text" class="form-control" name="lastName" id="lName">
 				</div>
 				<div class="form-group">
 					<label for="usr">Address Line 1:</label> 
-					<input type="text" class="form-control" id="add1">
+					<input type="text" class="form-control" name="addressLine1" id="add1">
 				</div>
 				<div class="form-group">
 					<label for="usr">Address Line 2:</label> 
-					<input type="text" class="form-control" id="add2">
+					<input type="text" class="form-control" name="addressLine2" id="add2">
 				</div>
 				<div class="form-group">
 					<label for="pwd">Postcode:</label> 
-					<input type="text" class="form-control" id="pstcd">
+					<input type="text" class="form-control" name="postcode" id="pstcd">
 				</div>
 				<div class="form-group">
 					<label for="pwd">Country:</label> 
-					<input type="text" class="form-control" id="coun">
+					<input type="text" class="form-control" name="country" id="coun">
+				</div>
+				<div class="form-group">
+					<label for="pwd">Password:</label> 
+					<input type="text" class="form-control" name="password" id="pswd">
 				</div>
 				<button type="submit" class="btn btn-primary">Submit details</button>
-			</div>
+			</form>
 	</div>
 	</div>
 

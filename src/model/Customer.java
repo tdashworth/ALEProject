@@ -1,9 +1,11 @@
 package model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,5 +176,25 @@ public class Customer {
 			}
 		}
 		return null;
+	}
+
+	public int writeToDb() {
+		try {
+			CallableStatement cs = DbConnector.getConnection().prepareCall("{call insertCustomer(?,?,?,?,?,?,?,?)}");
+			cs.setString(1, email);
+			cs.setString(2, firstName);
+			cs.setString(3, lastName);
+			cs.setString(4, addressLine1);
+			cs.setString(5, addressLine2);
+			cs.setString(6, postcode);
+			cs.setString(7, country);
+			cs.setString(8, password);
+			cs.execute();
+
+			return cs.getInt(1);
+		} catch (SQLException sqle) {
+			System.out.println(sqle);
+		}
+		return -1;
 	}
 }
