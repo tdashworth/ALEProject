@@ -25,6 +25,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-size: 20;
 }
 
 .topnav {
@@ -116,7 +117,7 @@
 
 .logout {
 	position: absolute;
-	top: 42px;
+	top: 30px;
 	right: 20px;	
 }
 
@@ -202,7 +203,7 @@
 
 #columnMain{
 	margin: 20px;
-	margin-left: 60px;
+	margin-left: 40px;
 	float: left;
 	height: 110%;
 	padding: 20px;
@@ -216,6 +217,18 @@
 	height: 110%;
     width: 30%;
     padding: 20px;
+	background-color: #F1F1F1;
+	border-radius: 25px;
+}
+
+#user {
+	margin-left: 30%;
+	margin-top: 5;
+	position: center;
+	float: center;
+	height: 110%;
+	padding: 25px;
+	width: 40%;
 	background-color: #F1F1F1;
 	border-radius: 25px;
 }
