@@ -32,6 +32,11 @@
 		}
 	%>
 	<a href='basket.jsp'>Basket</a>
+
+	<% if(c == null) {
+		%><a href='addUser.jsp'>Register</a> <%
+		}
+	%>
 </div>
 
 <div class="search">

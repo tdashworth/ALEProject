@@ -29,7 +29,7 @@
 				List<Ticket> tickets = null;
 				
 				if (email !=null) {
-					tickets = Ticket.getBasketTicketsByEmail(email);
+					tickets = Ticket.getBasketTicketsByEmail(email); ;
 					
 					for (Ticket t : tickets) {
 						out.println(t.getPerformanceTitle() + " - " + t.getType() + " (£" + t.getPrice() + ") <br>" +

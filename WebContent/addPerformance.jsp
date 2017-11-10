@@ -13,7 +13,7 @@
 
 	<div class="columnContainer">
 		<div class="row">
-			<div id="columnMain" style="background-color: #bbb;">
+			<div id="user" style="background-color: #bbb;">
 				<h2>Add performance</h2>
 				<form method="post" action="AddPerformance">
 					<div class="form-group">
